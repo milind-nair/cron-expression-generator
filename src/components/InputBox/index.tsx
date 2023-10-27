@@ -9,15 +9,20 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { setConstants } from "../../utils/utils";
 
-const InputBox = () => {
-  const [everyNseconds, setEveryNseconds] = React.useState("");
-  const [checkboxes, setCheckboxes] = React.useState(new Array(60).fill(false));
-  const [fromSeconds, setFromSeconds] = React.useState("");
+const InputBox = ({ parameter }: { parameter: string }) => {
+  const NUM_ITEMS = setConstants(parameter);
+  const [everyN, setEveryN] = React.useState("");
+  const [checkboxes, setCheckboxes] = React.useState(
+    new Array(NUM_ITEMS).fill(false)
+  );
+  const [from, setFrom] = React.useState("");
+  const [to, setTo] = React.useState("");
   const [selection, setSelection] = React.useState("");
-  const menuItems = Array.from(Array(61).keys()).slice(1);
+  const menuItems = Array.from(Array(NUM_ITEMS + 1).keys()).slice(1);
   const handleChange = (event: SelectChangeEvent) => {
-    setEveryNseconds(event.target.value as string);
+    setEveryN(event.target.value as string);
   };
   const handleCheckBoxChange = (index: number) => {
     const newCheckboxes = [...checkboxes];
@@ -25,7 +30,7 @@ const InputBox = () => {
     setCheckboxes(newCheckboxes);
   };
   return (
-    <Box sx={{ minWidth: 120, mx: 10, mt: "5%" }}>
+    <Box sx={{ minWidth: 120, mx: 10, mt: "2%" }}>
       <FormControl fullWidth>
         <Grid container spacing={1.5} sx={{ justifyContent: "center" }}>
           <Grid item>
@@ -35,7 +40,7 @@ const InputBox = () => {
                 setSelection("every");
               }}
             >
-              Every Second
+              Every {parameter}
             </Button>
           </Grid>
           <Grid item>
@@ -49,7 +54,7 @@ const InputBox = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={everyNseconds}
+                value={everyN}
                 sx={{ maxHeight: "25px", color: "white" }}
                 onChange={handleChange}
               >
@@ -58,8 +63,8 @@ const InputBox = () => {
                     {value}
                   </MenuItem>
                 ))}
-              </Select>
-              Seconds
+              </Select>{" "}
+              {parameter}s
             </Button>
             <InputLabel id="demo-simple-select-label"></InputLabel>
           </Grid>
@@ -70,7 +75,7 @@ const InputBox = () => {
                 setSelection("particular");
               }}
             >
-              Particular Second
+              Particular {parameter}
             </Button>
           </Grid>
         </Grid>
@@ -86,10 +91,11 @@ const InputBox = () => {
                 id="outlined-basic"
                 size="small"
                 select
+                fullWidth
                 sx={{ m: 1, minWidth: "10ch", color: "black" }}
-                value={fromSeconds}
+                value={from}
                 onChange={(event) => {
-                  setFromSeconds(event.target.value as string);
+                  setFrom(event.target.value as string);
                 }}
                 variant="outlined"
               >
@@ -108,8 +114,11 @@ const InputBox = () => {
                 size="small"
                 variant="outlined"
                 fullWidth
-                value={everyNseconds}
+                value={to}
                 sx={{ m: 1, minWidth: "10ch" }}
+                onChange={(event) => {
+                  setTo(event.target.value as string);
+                }}
               >
                 {menuItems.map((value, index) => (
                   <MenuItem key={index} value={value}>

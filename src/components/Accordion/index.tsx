@@ -9,7 +9,7 @@ import InputBox from "../InputBox";
 export default function ControlledAccordions() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
   return (
@@ -23,14 +23,14 @@ export default function ControlledAccordions() {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Seconds</Typography>
+          <Typography variant="h6" sx={{ width: "50%", flexShrink: 0 }}>
+            Seconds
+          </Typography>
           <Typography sx={{ color: "text.secondary" }}>
             {/* I am an accordion */}
           </Typography>
         </AccordionSummary>
-        <InputBox />
-        <AccordionDetails>
-        </AccordionDetails>
+        <InputBox parameter="Second" />
       </Accordion>
       <Accordion
         expanded={expanded === "panel2"}
@@ -41,11 +41,14 @@ export default function ControlledAccordions() {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Minutes</Typography>
+          <Typography variant="h6" sx={{ width: "33%", flexShrink: 0 }}>
+            Minutes
+          </Typography>
           <Typography sx={{ color: "text.secondary" }}>
             {/* You are currently not an owner */}
           </Typography>
         </AccordionSummary>
+        <InputBox parameter="Minute" />
         <AccordionDetails>
           <Typography>
             {/* Donec placerat, lectus sed mattis semper, neque lectus feugiat
@@ -63,11 +66,14 @@ export default function ControlledAccordions() {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Hours</Typography>
+          <Typography variant="h6" sx={{ width: "33%", flexShrink: 0 }}>
+            Hours
+          </Typography>
           <Typography sx={{ color: "text.secondary" }}>
             {/* Filtering has been entirely disabled for whole web server */}
           </Typography>
         </AccordionSummary>
+        <InputBox parameter="Hour" />
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
@@ -84,10 +90,12 @@ export default function ControlledAccordions() {
           aria-controls="panel5bh-content"
           id="panel5bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
+          <Typography variant="h6" sx={{ width: "33%", flexShrink: 0 }}>
             Day Of Month
           </Typography>
         </AccordionSummary>
+        <InputBox parameter="Day-Of-Month" />
+
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
@@ -104,8 +112,12 @@ export default function ControlledAccordions() {
           aria-controls="panel5bh-content"
           id="panel5bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>Month</Typography>
+          <Typography variant="h6" sx={{ width: "33%", flexShrink: 0 }}>
+            Month
+          </Typography>
         </AccordionSummary>
+        <InputBox parameter="Month" />
+
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
@@ -122,10 +134,12 @@ export default function ControlledAccordions() {
           aria-controls="panel6bh-content"
           id="panel6bh-header"
         >
-          <Typography sx={{ width: "33%", flexShrink: 0 }}>
+          <Typography variant="h6" sx={{ width: "33%", flexShrink: 0 }}>
             Day Of Week
           </Typography>
         </AccordionSummary>
+        <InputBox parameter="Day-Of-Week" />
+
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
