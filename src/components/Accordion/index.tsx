@@ -5,6 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InputBox from "../InputBox";
+import DoneButton from "./DoneButton";
 
 export default function ControlledAccordions() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -31,6 +32,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Second" />
+        <DoneButton setExpanded={setExpanded} panel={"panel1"} />
       </Accordion>
       <Accordion
         expanded={expanded === "panel2"}
@@ -49,6 +51,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Minute" />
+        <DoneButton setExpanded={setExpanded} panel={"panel2"} />
         <AccordionDetails>
           <Typography>
             {/* Donec placerat, lectus sed mattis semper, neque lectus feugiat
@@ -74,12 +77,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Hour" />
-        <AccordionDetails>
-          <Typography>
-            {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-            sit amet egestas eros, vitae egestas augue. Duis vel est augue. */}
-          </Typography>
-        </AccordionDetails>
+        <DoneButton setExpanded={setExpanded} panel={"panel3"} />
       </Accordion>
       <Accordion
         expanded={expanded === "panel4"}
@@ -95,7 +93,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Day-Of-Month" />
-
+        <DoneButton setExpanded={setExpanded} panel={"panel4"} />
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
@@ -117,7 +115,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Month" />
-
+        <DoneButton setExpanded={setExpanded} panel={"panel5"} />
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
@@ -139,7 +137,7 @@ export default function ControlledAccordions() {
           </Typography>
         </AccordionSummary>
         <InputBox parameter="Day-Of-Week" />
-
+        <DoneButton setExpanded={setExpanded} panel={"panel6"} />
         <AccordionDetails>
           <Typography>
             {/* Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
