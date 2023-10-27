@@ -7,7 +7,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InputBox from "../InputBox";
 import DoneButton from "./DoneButton";
 
-export default function ControlledAccordions() {
+export default function Panels() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const handleChange =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {

@@ -1,12 +1,11 @@
 import Paper from "@mui/material/Paper";
-import ControlledAccordions from "./components/Accordion";
+import Panels from "./components/Panels";
 
 function App() {
   return (
     <>
       <Paper elevation={3} sx={{ m: "10%" }}>
-        <ControlledAccordions />
-
+        <Panels />
       </Paper>
     </>
   );
