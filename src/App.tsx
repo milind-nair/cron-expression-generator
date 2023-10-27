@@ -1,15 +1,13 @@
-import InputBox from "./components/InputBox";
 import Paper from "@mui/material/Paper";
-import { Box } from "@mui/system";
+import ControlledAccordions from "./components/Accordion";
 
 function App() {
   return (
     <>
-        <Paper elevation={3} sx={{ mx: 10 }}>
-          <InputBox />
-          <InputBox />
-          <InputBox />
-        </Paper>
+      <Paper elevation={3} sx={{ m: "10%" }}>
+        <ControlledAccordions />
+
+      </Paper>
     </>
   );
 }
