@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InputBox from "../InputBox";
 import DoneButton from "./DoneButton";
+import CronExpressionDisplay from "../ResultDisplay";
 
 export default function Panels() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -149,6 +150,21 @@ export default function Panels() {
         <DoneButton setExpanded={setExpanded} panel={"panel6"} />
         <AccordionDetails></AccordionDetails>
       </Accordion>
+      <CronExpressionDisplay
+        cronExpression={
+          param1 +
+          " " +
+          param2 +
+          " " +
+          param3 +
+          " " +
+          param4 +
+          " " +
+          param5 +
+          " " +
+          param6
+        }
+      />
     </div>
   );
 }
