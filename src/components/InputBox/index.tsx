@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Checkbox from "@mui/material/Checkbox";
@@ -29,8 +28,44 @@ const InputBox = ({
   const [to, setTo] = React.useState("");
   const [selection, setSelection] = React.useState("");
   const menuItems = Array.from(Array(NUM_ITEMS + 1).keys()).slice(1);
-  const handleChange = (event: SelectChangeEvent) => {
-    setEveryN(event.target.value as string);
+  const handleEveryNChange = (event: SelectChangeEvent) => {
+    const result = event.target.value as string;
+    setEveryN(result);
+    if (!value.includes("/")) setValue(value + "/" + result);
+    else {
+      setValue(value.split("/")[0] + "/" + result);
+    }
+  };
+
+  const handleFrom = (event: any) => {
+    const result = event.target.value as string;
+    setFrom(result);
+    setValue(result + "/" + value.split("/")[1]);
+  };
+  const clearEveryN = () => {
+    setEveryN("");
+    setFrom("");
+    setTo("");
+  };
+  const clearCheckBoxes = () => {
+    setCheckboxes(
+      checkboxes.map((element) => {
+        element = false;
+      })
+    );
+  };
+  const handleTo = (event: any) => {
+    const result = event.target.value as string;
+    setTo(result);
+    const fieldArray = value.split("/");
+    if (parseInt(from) !== parseInt(result)) {
+      const firstField = fieldArray[0];
+      if (firstField.includes("-"))
+        setValue(firstField.split("-")[0] + "-" + result + "/" + fieldArray[1]);
+      else setValue(firstField + "-" + result + "/" + fieldArray[1]);
+    } else {
+      setValue(from + "/" + fieldArray[1]);
+    }
   };
   const handleCheckBoxChange = (index: number) => {
     const newCheckboxes = [...checkboxes];
@@ -43,14 +78,17 @@ const InputBox = ({
     setValue(newVal);
   };
   return (
-    <Box sx={{ minWidth: 100, mx: 10, mt: "2%" }}>
+    <Box sx={{ minWidth: 100, mx: 10 }}>
       <FormControl fullWidth>
         <Grid container spacing={2} sx={{ justifyContent: "space-around" }}>
           <Grid item>
             <Button
+              sx={{ width: "200px", height: "75px" }}
               variant="contained"
               onClick={() => {
                 setSelection("every");
+                clearEveryN();
+                clearCheckBoxes();
                 setValue("*");
               }}
             >
@@ -60,8 +98,10 @@ const InputBox = ({
 
           <Grid item>
             <Button
+              sx={{ width: "200px", height: "75px" }}
               variant="contained"
               onClick={() => {
+                clearCheckBoxes();
                 setSelection("everyN");
               }}
             >
@@ -71,7 +111,7 @@ const InputBox = ({
                 id="demo-simple-select"
                 value={everyN}
                 sx={{ maxHeight: "25px", color: "white" }}
-                onChange={handleChange}
+                onChange={handleEveryNChange}
               >
                 {menuItems.map((value, index) => (
                   <MenuItem key={index} value={value}>
@@ -82,58 +122,13 @@ const InputBox = ({
               {parameter}s
             </Button>
           </Grid>
-          {selection === "everyN" && (
-            <>
-              <Grid item>
-                <TextField
-                  label="From"
-                  id="outlined-basic"
-                  size="small"
-                  select
-                  fullWidth
-                  sx={{ minWidth: "10ch", color: "black", mx: -15 }}
-                  value={from}
-                  onChange={(event) => {
-                    setFrom(event.target.value as string);
-                  }}
-                  variant="outlined"
-                >
-                  {menuItems.map((value, index) => (
-                    <MenuItem key={index} value={value}>
-                      {value}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item>
-                <TextField
-                  id="outlined-basic"
-                  label="To"
-                  select
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  value={to}
-                  sx={{ minWidth: "10ch", ml: -20 }}
-                  onChange={(event) => {
-                    setTo(event.target.value as string);
-                  }}
-                >
-                  {menuItems.map((value, index) => (
-                    <MenuItem key={index} value={value}>
-                      {value}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-            </>
-          )}
 
-          <InputLabel id="demo-simple-select-label"></InputLabel>
           <Grid item>
             <Button
+              sx={{ width: "200px", height: "75px" }}
               variant="contained"
               onClick={() => {
+                clearEveryN();
                 setSelection("particular");
               }}
             >
@@ -141,31 +136,87 @@ const InputBox = ({
             </Button>
           </Grid>
         </Grid>
-        {selection === "everyN" && (
-          <Grid
-            container
-            spacing={3}
-            sx={{ justifyContent: "space-around", mt: "1%" }}
-          ></Grid>
-        )}
-        <Grid container sx={{ justifyContent: "space-between", mt: "5%" }}>
-          {selection === "particular" &&
-            checkboxes.map((checked, index) => (
-              <Grid item xs={2}>
+
+        {selection === "particular" && (
+          <Grid container sx={{ justifyContent: "center", mt: "5%" }}>
+            {checkboxes.map((checked, index) => (
+              <Grid item>
                 <FormControlLabel
+                  key={index}
                   control={
                     <Checkbox
-                      key={index}
                       checked={checked}
                       onChange={() => handleCheckBoxChange(index)}
-                      inputProps={{ "aria-label": "controlled" }}
                     />
                   }
-                  label={index}
+                  label={
+                    <Typography variant="body2" color="textPrimary">
+                      {index}
+                    </Typography>
+                  }
+                  labelPlacement="bottom"
                 />
               </Grid>
             ))}
-        </Grid>
+          </Grid>
+        )}
+
+        {selection === "everyN" && (
+          <Grid
+            container
+            sx={{ justifyContent: "center", mt: "10px" }}
+            spacing={2}
+          >
+            <Grid item>
+              <TextField
+                label="From"
+                id="outlined-basic"
+                size="small"
+                select
+                fullWidth
+                sx={{
+                  width: "100px",
+                  height: "10px",
+                  color: "black",
+                  my: "15%",
+                }}
+                value={from}
+                onChange={handleFrom}
+                variant="outlined"
+              >
+                {menuItems.map((value, index) => (
+                  <MenuItem key={index} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item>
+              <TextField
+                id="outlined-basic"
+                label="To"
+                select
+                size="small"
+                variant="outlined"
+                fullWidth
+                value={to}
+                sx={{
+                  width: "100px",
+                  height: "10px",
+                  color: "black",
+                  my: "15%",
+                }}
+                onChange={handleTo}
+              >
+                {menuItems.map((value, index) => (
+                  <MenuItem key={index} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+          </Grid>
+        )}
       </FormControl>
     </Box>
   );
