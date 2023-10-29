@@ -42,7 +42,9 @@ function CronExpressionDisplay({ cronExpression }: any) {
                 padding: 4,
               }}
             >
-              <Typography variant="body1">{cronParameters[index]}</Typography>
+              <Typography variant="body1" sx={{ fontSize: "40px" }}>
+                {cronParameters[index]}
+              </Typography>
             </Box>
           </Grid>
         ))}
