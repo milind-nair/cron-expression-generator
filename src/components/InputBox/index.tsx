@@ -48,11 +48,7 @@ const InputBox = ({
     setTo("");
   };
   const clearCheckBoxes = () => {
-    setCheckboxes(
-      checkboxes.map((element) => {
-        element = false;
-      })
-    );
+    setCheckboxes(new Array(NUM_ITEMS).fill(false));
   };
   const handleTo = (event: any) => {
     const result = event.target.value as string;
