@@ -1,4 +1,5 @@
 import { Paper, Typography, Box, Grid } from "@mui/material";
+import CopyButton from "../CopyButton";
 
 function CronExpressionDisplay({ cronExpression }: any) {
   const cronParameters = cronExpression.split(" ");
@@ -49,6 +50,7 @@ function CronExpressionDisplay({ cronExpression }: any) {
           </Grid>
         ))}
       </Grid>
+      <CopyButton cronExpression={cronExpression} />
     </Paper>
   );
 }
